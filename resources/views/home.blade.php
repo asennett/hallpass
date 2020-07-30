@@ -65,7 +65,7 @@
                     @foreach($locations as $location)
                       <tr>
                         <td>{{ $location->name }}</td>
-                        <td></td>
+                        <td>{{ $location->hallpasses_count }}</td>
                         <td>{{ $location->capacity }}</td>
                       </tr>
                     @endforeach

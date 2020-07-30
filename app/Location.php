@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-  //
+  public function hallpasses()
+  {
+    return $this->hasMany('App\Hallpass','location_id','id');
+  }
 }
