@@ -6,23 +6,60 @@
         <!-- Superadmin & Admin -->
         @if($user->role_id == '1' || $user->role_id == '2')
           <div class="col-md-10">
-              <div class="card">
-                  <div class="card-header">Current Passes</div>
-
-                  <div class="card-body">
-                      @if (session('status'))
-                          <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
-                          </div>
-                      @endif
-
-                      <ul class="list-group">
-                        @foreach($all_recent_hallpasses as $recent_hallpass)
-                          <li class="list-group-item"><b>Student:</b> {{ $recent_hallpass->student->fname }} {{ $recent_hallpass->student->lname }},<b>Staff</b>: {{ $recent_hallpass->staff->lname }}, <b>Location</b>: {{ $recent_hallpass->location->name }}</li>
-                        @endforeach
-                      </ul>
-                  </div>
+            @if(!$all_recent_hallpasses->isEmpty())
+            <h4>Current Hallpasses</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Teacher</th>
+                      <th>Location</th>
+                      <th>Day, Date, Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($all_recent_hallpasses as $recent_hallpass)
+                      <tr>
+                        <td>{{ $recent_hallpass->student->fname }} {{ $recent_hallpass->student->lname }}</td>
+                        <td>{{ $recent_hallpass->staff->fname }} {{ $recent_hallpass->staff->lname }}</td>
+                        <td>{{ $recent_hallpass->location->name }}</td>
+                        <td>{{ $recent_hallpass->created_at->toDayDateTimeString() }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
               </div>
+            @else
+              <p>There are no current hallpasses at this time.</p>
+            @endif
+          </div>
+          <div class="col-md-10">
+            @if(!$todays_hallpasses->isEmpty())
+              <h4>Today's Hallpasses</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Teacher</th>
+                      <th>Location</th>
+                      <th>Day, Date, Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($todays_hallpasses as $todays_hallpass)
+                      <tr>
+                        <td>{{ $todays_hallpass->student->fname }} {{ $todays_hallpass->student->lname }}</td>
+                        <td>{{ $todays_hallpass->staff->fname }} {{ $todays_hallpass->staff->lname }}</td>
+                        <td>{{ $todays_hallpass->location->name }}</td>
+                        <td>{{ $todays_hallpass->created_at->toDayDateTimeString() }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            @endif
           </div>
         <!-- Teacher  -->
         @elseif($user->role_id == '3')
@@ -36,7 +73,7 @@
                       <h4><i>Waiting for Teacher</i></h4> @else <h4><i>Approved</i></h4>
                     @endif
 
-                    <p class="card-text"> <b>For</b>: {{ $teacher_hallpass->student->fname }} {{ $teacher_hallpass->student->lname }}<br /><b>From</b>: {{ $teacher_hallpass->staff->fname }} {{ $teacher_hallpass->staff->lname }}<br /><b>Time Approved</b>: {{ $teacher_hallpass->created_at }}</p>
+                    <p class="card-text"> <b>For</b>: {{ $teacher_hallpass->student->fname }} {{ $teacher_hallpass->student->lname }}<br /><b>From</b>: {{ $teacher_hallpass->staff->fname }} {{ $teacher_hallpass->staff->lname }}<br /><b>Time Approved</b>: {{ $teacher_hallpass->created_at->toDayDateTimeString() }}</p>
                     <form method="POST" action="/approve">
                       @csrf
                       <input type="hidden" id="id" name="id" value="{{ $teacher_hallpass->id }}">

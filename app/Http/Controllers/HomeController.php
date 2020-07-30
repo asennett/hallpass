@@ -35,9 +35,11 @@ class HomeController extends Controller
 
         //If logged in user is a student, check if student has a current hallpass. If the child does not have a hallpass or if the hallpass has expired, give the student the option to request another hallpass. Hallpasses will expire in 15 minutes from request.
         if ($user->role_id == '1' || $user->role_id == '2') {
-          $all_recent_hallpasses = Hallpass::where('created_at','>=',Carbon::now()->subMinutes(15)->toDateTimeString())->with('student','staff','location')->get()->sortBy('student.lname');
+          $all_recent_hallpasses = Hallpass::where('created_at','>=',Carbon::now()->subMinutes(15)->toDateTimeString())->where('status','approved')->with('student','staff','location')->get()->sortBy('student.lname');
 
-          return view('home',compact('user','all_recent_hallpasses'));
+          $todays_hallpasses = Hallpass::where('created_at','>=',Carbon::today())->where('status','approved')->get()->sortBy('student.lname');
+
+          return view('home',compact('user','all_recent_hallpasses','todays_hallpasses'));
 
         // If logged in user is a teacher, get all of the hallpass requests for this teacher from within that past fifteen minutes.
         } else if ($user->role_id == '3') {
