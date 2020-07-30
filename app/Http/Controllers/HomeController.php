@@ -44,6 +44,7 @@ class HomeController extends Controller
           $recent_hallpasses_for_teacher_view = Hallpass::where('staff_id',$user->id)->where('created_at','>=',Carbon::now()->subMinutes(15)->toDateTimeString())->get();
 
           // Get live count of all individuals in location.
+          //
           $locations = Location::get();
 
           // Get all of the hallpasses from today.
