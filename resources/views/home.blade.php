@@ -52,8 +52,9 @@
           </div>
           <div class="col-md-6">
             @if(!$locations->isEmpty())
+            <h4>Current Location Load</h4>
               <div class="table-responsive">
-                <table class="table">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>Location</th>
@@ -65,7 +66,7 @@
                     @foreach($locations as $location)
                       <tr>
                         <td>{{ $location->name }}</td>
-                        <td>{{ $location->hallpasses_count }}</td>
+                        <td>{{ $location->current_hallpasses_count }}</td>
                         <td>{{ $location->capacity }}</td>
                       </tr>
                     @endforeach
@@ -76,29 +77,32 @@
               <p>There are no locations in the system at this time.</p>
             @endif
           </div>
-          <div class="table-responsive">
-            @if(!$todays_hallpasses->isEmpty())
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Day, Date, Time</th>
-                    <th>Location</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($todays_hallpasses as $hallpass)
+          <div class="col">
+            <h4>My Approved Hallpasses</h4>
+            <div class="table-responsive">
+              @if(!$todays_hallpasses->isEmpty())
+                <table class="table table-striped  table-bordered">
+                  <thead>
                     <tr>
-                      <td>{{ $hallpass->student->fname }}</td>
-                      <td>{{ $hallpass->student->lname }}</td>
-                      <td>{{ $hallpass->created_at->toDayDateTimeString() }}</td>
-                      <td>{{ $hallpass->location->name }}</td>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Day, Date, Time</th>
+                      <th>Location</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            @endif
+                  </thead>
+                  <tbody>
+                    @foreach($todays_hallpasses as $hallpass)
+                      <tr>
+                        <td>{{ $hallpass->student->fname }}</td>
+                        <td>{{ $hallpass->student->lname }}</td>
+                        <td>{{ $hallpass->created_at->toDayDateTimeString() }}</td>
+                        <td>{{ $hallpass->location->name }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              @endif
+            </div>
           </div>
         </div>
 

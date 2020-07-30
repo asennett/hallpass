@@ -45,10 +45,10 @@ class HomeController extends Controller
 
           // Get live count of all individuals in location.
           //
-          $locations = Location::withCount('hallpasses')->get();
+          $locations = Location::withCount('current_hallpasses')->get();
 
           // Get all of the hallpasses from today.
-          $todays_hallpasses = Hallpass::where('staff_id',$user->id)->whereDate('created_at',Carbon::now())->with('student','location')->get();
+          $todays_hallpasses = Hallpass::where('staff_id',$user->id)->where('status','approved')->whereDate('created_at',Carbon::now())->with('student','location')->get();
 
           return view('home',compact('user','locations','recent_hallpasses_for_teacher_view','todays_hallpasses'));
 

@@ -2,12 +2,20 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-  public function hallpasses()
+  public function current_hallpasses()
   {
-    return $this->hasMany('App\Hallpass','location_id','id');
+    return $this->hasMany('App\Hallpass')->where('hallpasses.status','=','approved')->where('created_at','>=',Carbon::now()->subMinutes(15));
   }
+
+  // public function all_hallpasses()
+  // {
+  //   return $this->hasMany('App\Hallpass')->where('hallpasses.status','=','approved');
+  // }
+
 }
