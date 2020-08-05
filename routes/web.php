@@ -23,3 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/hallpass', 'HallpassController@store')->name('store');
 Route::post('/approve','HallpassController@approve')->name('approve');
 Route::post('/deny','HallpassController@destroy')->name('destroy');
+Route::get('/all','HallpassController@all')->name('all');
+Route::get('/user-hallpass-list/{id}','HallpassController@list')->name('list');

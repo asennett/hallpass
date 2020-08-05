@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Hallpass;
+use App\User;
 
 use Auth;
 
@@ -106,6 +107,31 @@ class HallpassController extends Controller
     {
       $hallpass = Hallpass::where('id',$request->id)->first();
       $hallpass->delete();
+
+      return back();
+    }
+
+    // This function may be better suited on a Users Controller.
+    public function all()
+    {
+      $user = Auth::user();
+      if($user->role_id == 1 || $user->role_id == 2){
+        $all_users_with_hallpasses = User::where('role_id','4')->with('hallpasses')->get()->sortBy('lname');
+
+        return view('all',compact('all_users_with_hallpasses'));
+      }
+    }
+
+    public function list($id)
+    {
+      $user = Auth::user();
+      if($user->role_id == 1 || $user->role_id = 2){
+        $student_hallpasses = Hallpass::where('student_id',$id)->where('status','approved')->with('location','staff')->latest()->get();
+
+        // return $student_hallpasses;
+
+        return view('list',compact('student_hallpasses'));
+      }
 
       return back();
     }

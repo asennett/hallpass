@@ -13,9 +13,4 @@ class Location extends Model
     return $this->hasMany('App\Hallpass')->where('hallpasses.status','=','approved')->where('created_at','>=',Carbon::now()->subMinutes(15));
   }
 
-  // public function all_hallpasses()
-  // {
-  //   return $this->hasMany('App\Hallpass')->where('hallpasses.status','=','approved');
-  // }
-
 }

@@ -6,10 +6,11 @@
         <!-- Superadmin & Admin -->
         @if($user->role_id == '1' || $user->role_id == '2')
           <div class="col-md-10">
+            <a href="/all" class="float-right">View By Student</a>
             @if(!$all_recent_hallpasses->isEmpty())
             <h4>Current Hallpasses</h4>
               <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                   <thead>
                     <tr>
                       <th>Student</th>
@@ -38,7 +39,7 @@
             @if(!$todays_hallpasses->isEmpty())
               <h4>Today's Hallpasses</h4>
               <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                   <thead>
                     <tr>
                       <th>Student</th>
@@ -115,7 +116,7 @@
             @endif
           </div>
           <div class="col">
-            <h4>My Approved Hallpasses</h4>
+            <h4>My Approved Hallpasses From Today</h4>
             <div class="table-responsive">
               @if(!$todays_hallpasses->isEmpty())
                 <table class="table table-striped  table-bordered">

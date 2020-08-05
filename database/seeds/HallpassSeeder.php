@@ -20,19 +20,19 @@ class HallpassSeeder extends Seeder
 
         $hallpass = new Hallpass;
         $hallpass->location_id = '1';
-        $hallpass->student_id = '7';
+        $hallpass->student_id = '5';
         $hallpass->staff_id = '3';
         $hallpass->save();
 
         $hallpass = new Hallpass;
         $hallpass->location_id = '1';
-        $hallpass->student_id = '6';
+        $hallpass->student_id = '5';
         $hallpass->staff_id = '3';
         $hallpass->save();
 
         $hallpass = new Hallpass;
         $hallpass->location_id = '1';
-        $hallpass->student_id = '4';
+        $hallpass->student_id = '5';
         $hallpass->staff_id = '3';
         $hallpass->save();
     }
