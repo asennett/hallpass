@@ -25,3 +25,4 @@ Route::post('/approve','HallpassController@approve')->name('approve');
 Route::post('/deny','HallpassController@destroy')->name('destroy');
 Route::get('/all','HallpassController@all')->name('all');
 Route::get('/user-hallpass-list/{id}','HallpassController@list')->name('list');
+Route::get('/users','UsersController@users')->name('users');

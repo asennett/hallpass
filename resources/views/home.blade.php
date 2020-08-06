@@ -6,7 +6,8 @@
         <!-- Superadmin & Admin -->
         @if($user->role_id == '1' || $user->role_id == '2')
           <div class="col-md-10">
-            <a href="/all" class="float-right">View By Student</a>
+            <a href="/all" class="float-right">Student & Their Hallpasses</a><br />
+            <a href="/users" class="float-right">Users Manager</a>
             @if(!$all_recent_hallpasses->isEmpty())
             <h4>Current Hallpasses</h4>
               <div class="table-responsive">
